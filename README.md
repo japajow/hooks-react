@@ -110,4 +110,43 @@ Criamos um formulario que recebar os valores com input e mostre
 
 ```
 
-##
+## useReducer
+
+- O useReducer tem a mesma funcao que o useState, ele gerencia valores
+- Porem temos a possibilidade de executar uma funcao na hora da alteracao do valor
+- Entao temos que o useReducer recebe um valor para gerenciar e uma funcao para alterar este valor
+
+Criamos o hook novo HookUseReducer.js
+
+Criar a variavel atribuida com valores no useReducer
+
+```tsx
+
+ const [number, dispacth] = useReducer((state,action) => {
+     return Math.random(state)
+ })
+
+// Criamos um boato que ira receber a funcao dispatch  e ao clicar muda o number
+<button onClick={dispatch}>Clique aqui</button>
+
+
+//Finalizando assim
+
+import React, { useReducer } from "react";
+
+export const HookUseReducer = () => {
+  const funcReducer = (state, action) => {
+    return Math.random(state);
+  };
+
+  const [number, dispatch] = useReducer(funcReducer);
+  return (
+    <div>
+      <h2>useReducer</h2>
+      <p>Numero : {number}</p>
+      <button onClick={dispatch}>View Number</button>
+      <hr />
+    </div>
+  );
+};
+```
