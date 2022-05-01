@@ -47,34 +47,67 @@ export default App;
 
 Criamos o navbar e estilizamos
 
-apos ter feito o navbar vamos criar uma pasta chamada components e colocar os nossos Hooks dentro dele 
+apos ter feito o navbar vamos criar uma pasta chamada components e colocar os nossos Hooks dentro dele
 
 components/HookUseState.js
 
+```tsx
+//criando as variaveis e o estado
+let variableName = "bruno";
+const [name, setName] = useState("Pedro");
+
+//criamos a funcao que ira mudar o nome
+const handleChangeName = () => {
+  variableName = "bruno hamawaki";
+  setName("Pedro Kiyomi");
+};
+
+// setamos no HTML as variaveis
+{
+  variableName;
+}
+{
+  name;
+}
+
+//criamos o botao que ira receber a funcao click para modificar o nome
+<button onClick={handleChangeName}>Click</button>;
+```
+
+## useState e inputs
+
+- Alterando o useState a um iput podemos fazer algumas acoes
+- Alteracao de um state por evento de onChange
+- Limpeza de inputs Controlled input
+- Apos preenchimento total do form unir os states e fazer um envio dos dados para o backend
+
+Criamos a variavel estado
+Criamos a funcao handleSubimit
+Criamos um formulario que recebar os valores com input e mostre
 
 ```tsx
+ //   usestate com input
+    const [age, setAge] = useState(18);
 
-    //criando as variaveis e o estado 
-    let variableName = "bruno"
-    const [name,setName] = useState('Pedro')
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    //criamos a funcao que ira mudar o nome 
-    const handleChangeName = () => {
+        console.log(age);
+    };
 
-        variableName = "bruno hamawaki";
-        setName("Pedro Kiyomi")
-    }
-
-    // setamos no HTML as variaveis
-    {variableName}
-    {name}
-
-    //criamos o botao que ira receber a funcao click para modificar o nome 
-    <button onClick={handleChangeName}>Click</button>
+     /* useState com Inputs */
+      <h2>useState com Inputs</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
+        <input type="submit" value="enviar" />
+      </form>
+      <p>Voce tem {age} anos!</p>
+      <hr />
 
 ```
 
-
-## useState e inputs 
-
-
+##
