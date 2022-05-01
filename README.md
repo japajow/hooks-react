@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+## Hooks do React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> useState
 
-## Available Scripts
+- O useState e um dos procipais hooks do React
+- O principal proposito e gerenciar valores
+- Podemos consultar um valor e alterar
+- Isso nos permite re-renderizar um componente, o que nao acontece com a manipulacao de variaveis
 
-In the project directory, you can run:
+instalando o npm i react-router-dom
 
-### `npm start`
+importamos o BrowserRouter,Roues,Route
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```tsx
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Criamos 2 paginas
+pages/Home.js pages/About.js
 
-### `npm test`
+Configuramos as rotas no App.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```tsx
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import "./App.css";
+import { About } from "./pages/About/About";
+import { Home } from "./pages/Home/Home";
 
-### `npm run build`
+function App() {
+  return (
+    <>
+      <div className="App">
+        <h1>React Hooks</h1>
+      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export default App;
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Criamos o navbar e estilizamos
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+apos ter feito o navbar vamos criar uma pasta chamada components e colocar os nossos Hooks dentro dele 
 
-### `npm run eject`
+components/HookUseState.js
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```tsx
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    //criando as variaveis e o estado 
+    let variableName = "bruno"
+    const [name,setName] = useState('Pedro')
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    //criamos a funcao que ira mudar o nome 
+    const handleChangeName = () => {
 
-## Learn More
+        variableName = "bruno hamawaki";
+        setName("Pedro Kiyomi")
+    }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    // setamos no HTML as variaveis
+    {variableName}
+    {name}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    //criamos o botao que ira receber a funcao click para modificar o nome 
+    <button onClick={handleChangeName}>Click</button>
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+## useState e inputs 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
