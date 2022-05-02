@@ -153,7 +153,7 @@ export const HookUseReducer = () => {
 
 ## Usando o useReducer utilizando a actions
 
-- Se o useReducer fosse utilizado como no exemplo pasado, nao teria tanta diferenca do useState
+- Se o useReducer fosse utilizado como no exemplo passado, nao teria tanta diferenca do useState
 - Por isso o reducer geralmente contem operacoes mais complexas ,utilizando a estrutura switch com actions
 - Esta situacao foi apresentada na secao de Context API
 
@@ -217,7 +217,7 @@ const taskReducer = (state,action) => {
            setTaskText("")
             //passamos o estado antigo junto com estado novo
            return [...state, newTask]
-
+cd
             //normalmente temo mais cases
             case "DELETE":
                 return state.filter((tesk) => tesk.id !== action.id)
@@ -238,3 +238,40 @@ const deleteTask = (id) =>{
       dispatchTasks({type: "DELETE",id})
   }
 ```
+
+## UseEffect qual seu uso e como usar
+
+- O useEffect e utilizado para varias acoes no nosso App, junto com useState e um dos hooks mais utilizados
+- Podemos realizar desde alterações na DOM a requisições HTTP
+- E o grande motivo é conseguimos controlar quantas vezes algo acontece
+- A sintaxe é formada por uma função a ser executada e um array de dependências
+
+Criamos o arquivo componentes/HookUseEffect.js
+Chamamos ele no nosso Home.js
+
+```tsx
+//criamos o componente e chamamos o useEffect importando ele
+useEffect(() => {
+  console.log("sendo executado");
+});
+```
+
+Importamos o useState()
+
+```tsx
+const [number, setNumber] = useState(1);
+
+//Criamos uma funcao para setar o number
+const changeSomething = () => {
+  setNumber(number + 1);
+};
+
+// criamos um p e um button
+<div>
+  <h2>UseEffect</h2>
+  <p>Number : {number}</p>
+  <button onClick={changeSomething}>Executar</button>
+  <hr />
+</div>;
+```
+ **Sempre o componente renderizar o useEffect e disparado**
