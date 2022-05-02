@@ -23,6 +23,15 @@ export const HookUseEffect = () => {
       console.log("Executado apenas quando anotherNumber for alterado");
   }, [anotherNumber]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log("Hello world");
+      setAnotherNumber(anotherNumber + 1);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [anotherNumber]);
+
   return (
     <div>
       <h2>UseEffect</h2>

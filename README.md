@@ -316,3 +316,30 @@ useEffect(() => {
   Mudar anotherNumber
 </button>
 ```
+
+## Limpeza do useEffect
+
+- Alguns efeitos precisam ter uma técnica de cleanup para garantir o seu funcionamento
+- Não fazer isso pode gerar erros ou comportamentos indesejados.
+- exemplo: um timeout que ao mudar de página pode continuar a ser executado, pela falta desta limpeza
+
+Criando um novo useEffect
+
+```tsx
+useEffect(() => {
+  const timer = setTimeout(() => {
+    console.log("Hello world");
+  }, 2000);
+}, [anotherNumber]);
+
+//assim ele vai ficar chamando sempre que mudarmos de pagina
+//para isso nao acontecer criamos o cleanup
+useEffect(() => {
+  const timer = setTimeout(() => {
+    console.log("Hello world");
+    setAnotherNumber(anotherNumber + 1);
+  }, 2000);
+
+  return () => clearTimeout(timer);
+}, [anotherNumber]);
+```
