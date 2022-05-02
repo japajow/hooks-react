@@ -150,3 +150,91 @@ export const HookUseReducer = () => {
   );
 };
 ```
+
+## Usando o useReducer utilizando a actions
+
+- Se o useReducer fosse utilizado como no exemplo pasado, nao teria tanta diferenca do useState
+- Por isso o reducer geralmente contem operacoes mais complexas ,utilizando a estrutura switch com actions
+- Esta situacao foi apresentada na secao de Context API
+
+Continuando no HookUseReducer.js
+
+```tsx
+//criamos um dado inicial
+
+const initialTasks = [
+  { id: 1, text: "Fazer  alguma coisa" },
+  { id: 2, text: "Fazer outra coisa" },
+];
+
+// criamos uma funcao que recebe o state e action como parametro
+const taskReducer = (state,action) => {
+
+}
+// criamos o estado do task
+const [taskText, setTaskText] = useState('')
+// E fazemos a declaracao do reducer
+const [tasks, dispatchTasks] = useReducer(taskReducer, initialTasks)
+
+//no HTML comlocamos uma separacao
+<h3>Tarefas:</h3>
+{tasks.map(task=>{
+   return <li key={task.id}>{task.text}</li>
+})}
+
+// Vamos usar o useState que vai representar o estado de cada tarefa
+import {useState} from 'react'
+
+
+
+// criamos o formulario
+<form onSubmit={handleSubmit}>
+    <input type="text" onChange={(e)=> setTaskText(e.target.value)} value={taskText}/>
+    <input type="submit" value="Enviar" />
+</form>
+
+//criamos a funcao handleSubmit
+
+const handleSubmit = (e)=>{
+    e.preventDefault()
+
+    //Vamos utilizar a funcao dispatchTask() e criar as acoes primeiro nela , para conseguir dispachar um determinado valor por ela
+    dispatchTask()
+}
+
+// vamos preencher as acoes
+
+const taskReducer = (state,action) => {
+
+    switch(action.type){
+        case "ADD":
+           //vai gerar im novo id
+           const newTask = {
+               id: Math.ramdom(),
+               text: taskText
+           }
+           // Com a id gerada , zeramos a taskText, para que o input fique em branco para adicionar uma proxima tarefa
+           setTaskText("")
+            //passamos o estado antigo junto com estado novo
+           return [...state, newTask]
+
+            //normalmente temo mais cases
+            case "DELETE":
+                return state.filter((tesk) => tesk.id !== action.id)
+                default:
+                    return state;
+    }
+}
+
+// agora invocamos no dispatchTask o tipo
+dispatchTask( {type:"ADD"})
+
+//Agora criamos um button em cada li passando o id
+  <li key={task.id}>{task.text}  <button onClick={()=>{deleteTask(task.id)}}>Deletar</button></li>
+
+// criamos a funcao de deletar deleteTask com parametro que recebe o id
+const deleteTask = (id) =>{
+    //passamos o type DELETE e o id para useReducer pegar  o action
+      dispatchTasks({type: "DELETE",id})
+  }
+```
