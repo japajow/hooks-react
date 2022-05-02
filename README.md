@@ -343,3 +343,70 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [anotherNumber]);
 ```
+
+## useContext
+
+- O useContext é o hook utilizado para consumir um contexto, da Context API
+- Vamos precisar criar o contexto e também o Provider
+- Envolvendo os componentes que receberão os valores compartilhados
+- E então fazer o uso do hook onde quiser e for necessário
+
+Criando um novo components/HookUseContext.js
+
+```tsx
+import { createContext } from "react";
+
+export const SomeContext = createContext();
+
+export const HookUseContext = ({ children }) => {
+  const contextValue = "texting context";
+  return (
+    <SomeContext.Provider value={{ contextValue }}>
+      {children}
+    </SomeContext.Provider>
+  );
+};
+```
+
+Agora vamos no nosso App.js envolvemos ele em todo nosso projeto para ser utilizado
+
+```tsx
+
+  <div className="App">
+    <HookUseContext>
+      <h1>React Hooks</h1>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
+    </HookUseContext>
+
+```
+
+Vamos no Home.js e usar o contexto
+
+```tsx
+//chamamos o nosso useContext passando o SomeContext
+const { contextValue } = useContext(SomeContext);
+//utilizamos no corpo do Home.js o contexto
+ <h2>UseContext</h2>
+ <p>{contextValue}</p>
+```
+
+Vamos usar também no About.js
+
+```tsx
+export const About = () => {
+  const { contextValue } = useContext(SomeContext);
+  return (
+    <div>
+      <h1>About</h1>
+      <h2>UseContext</h2>
+      <p>{contextValue}</p>
+    </div>
+  );
+};
+```

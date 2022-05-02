@@ -1,8 +1,14 @@
-import React from 'react';
-import './About.css';
- 
+import React, { useContext } from "react";
+import { SomeContext } from "../../components/HookUseContext";
+import "./About.css";
+
 export const About = () => {
- return (
-<div>About</div>
- );
+  const { contextValue } = useContext(SomeContext);
+  return (
+    <div>
+      <h1>About</h1>
+      <h2>UseContext</h2>
+      <p>{contextValue}</p>
+    </div>
+  );
 };
