@@ -16,11 +16,27 @@ export const HookUseEffect = () => {
     console.log("Serei executado apenas uma vez");
   }, []);
 
+  const [anotherNumber, setAnotherNumber] = useState(0);
+
+  useEffect(() => {
+    if (anotherNumber > 0)
+      console.log("Executado apenas quando anotherNumber for alterado");
+  }, [anotherNumber]);
+
   return (
     <div>
       <h2>UseEffect</h2>
       <p>Number : {number}</p>
       <button onClick={changeSomething}>Executar</button>
+      <h2>Another Number</h2>
+      <p>AnotherNumber: {anotherNumber}</p>
+      <button
+        onClick={() => {
+          setAnotherNumber(anotherNumber + 1);
+        }}
+      >
+        Mudar anotherNumber
+      </button>
       <hr />
     </div>
   );

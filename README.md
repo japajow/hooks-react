@@ -290,3 +290,29 @@ useEffect(() => {
   console.log("Serei executado apenas uma vez");
 }, []);
 ```
+
+## Agora utilizando array dependências do useEffect
+
+' Outra maneira de controlar quando o useEffect será executado é colocando algum item no array de dependências
+' Assim sempre que o item for alterado, teremos o useEffect sendo executado novamente
+' Nos fornecendo um maior controle de quando a função deve ser ou não ser executada
+
+Criamos um novo useState
+
+```tsx
+const [anotherNumber, setAnotherNumber] = useState(0);
+//criamos um novo useEffect com array dependências
+useEffect(() => {
+  console.log("executado apenas quando o anotherNumber for alterado ")
+}, [anotherNumber]);
+
+//criamos o button e o paragrafo que mostra o anotherNumber
+<p>AnotherNumber: {anotherNumber}</p>
+<button
+  onClick={() => {
+    setAnotherNumber(anotherNumber + 1);
+  }}
+>
+  Mudar anotherNumber
+</button>
+```
