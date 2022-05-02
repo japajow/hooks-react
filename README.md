@@ -410,3 +410,45 @@ export const About = () => {
   );
 };
 ```
+
+## UseRef
+
+- O useRef pode ser utilizado como useState para gerenciar valores
+- A diferença é que ele é um objeto,seu valor está ma propriedade current
+- Outra particularidade do useRef é que ele não re-renderiza o componente ao ser alterado, sendo interessante em alguns casos.
+
+Criamos im novo componente hook
+components;/HookUseRef.js
+chamamos ele na Home.js
+
+```tsx
+<HookUseRef />
+```
+
+Voltamos no nosso HookUseRef.js
+
+```tsx
+//criamos uma referencia de valor
+const numberRef = useRef(0);
+
+//criando um counter state
+const [counter, setCounter] = useState(0);
+
+//criamos um outro counter B state
+const [counterB, setCounterB] = useState(0);
+
+//Agora vamos exibir os counters
+<div>
+  <h2>useRef</h2>
+  <p>o componente renderizou: {numberRef.current}</p>
+  <p>Counter 1 : {counter}</p>
+  <button onClick={() => setCounter(counter + 1)}>Contador A</button>
+  <p>Counter 2 : {counterB}</p>
+  <button onClick={() => setCounterB(counterB + 1)}>Contador B</button>
+</div>;
+
+//criamos um useEffect() para alterar o valor do numberRef
+useEffect(() => {
+  numberRef.current = numberRef.current + 1;
+});
+```
