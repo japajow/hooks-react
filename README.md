@@ -452,3 +452,39 @@ useEffect(() => {
   numberRef.current = numberRef.current + 1;
 });
 ```
+
+## useRef e o DOM
+
+- O useRef pode ser utilizado para selecionar elementos do JSX
+- Com isso podemos fazer manipulação de DOM ou aplicar funções como a focus, que foca no input
+- Este é um outro uso muito interessante para este hook
+
+```tsx
+//  Criamos uma variavel com o useRef
+const inputRef = useRef();
+// criamos um estado para linkar com input
+const [text, setText] = useState("");
+// Criamos uma funcao submit que ira receber o submit
+const handleSubmit = (e) => {
+  e.preventDefault();
+  console.log(inputRef);
+  setText("");
+  inputRef.current.focus();
+};
+
+// Criamos o formulario e os imputs para usar o estado e useRef
+{
+  /* 2 useRef e DOM */
+}
+<form onSubmit={handleSubmit}>
+  <input
+    type="text"
+    ref={inputRef}
+    value={text}
+    onChange={(e) => {
+      setText(e.target.value);
+    }}
+  />
+  <input type="submit" value={"Enviar"} />
+</form>;
+```
