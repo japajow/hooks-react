@@ -11,6 +11,11 @@ export const HookUseEffect = () => {
   const changeSomething = () => {
     setNumber(number + 1);
   };
+
+  useEffect(() => {
+    console.log("Serei executado apenas uma vez");
+  }, []);
+
   return (
     <div>
       <h2>UseEffect</h2>

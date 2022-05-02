@@ -274,4 +274,19 @@ const changeSomething = () => {
   <hr />
 </div>;
 ```
- **Sempre o componente renderizar o useEffect e disparado**
+
+**Sempre o componente renderizar o useEffect e disparado**
+
+## useEffect com array vazio
+
+- Uma estratégia interessante para algumas situações é utilizar o useEffect apenas uma vez
+- Para isso apenas precisamos deixar o array de dependências vazio
+- Ap renderizar o componente a lógica será executada
+
+Criamos um useEffect novo
+
+```tsx
+useEffect(() => {
+  console.log("Serei executado apenas uma vez");
+}, []);
+```
