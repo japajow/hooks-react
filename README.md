@@ -488,3 +488,80 @@ const handleSubmit = (e) => {
   <input type="submit" value={"Enviar"} />
 </form>;
 ```
+
+## useCallback
+
+- O hook de useCallback pode ser utilizado para dias situações
+  = Ele basicamente memoriza uma funcao, fazendo ela nao ser reconstruída a cada renderização de um componente
+- O primeiro caso e quando estamos prezando pela performance, então queremos que uma funcao muito complexa nao seja reconstruída toda vez
+- Ja o segundo e quando o próprio React nos indica que uma funcao deveria estar contida em um useCallback, para evitar problemas de performance
+
+Criando componentes/HookUseCallback.js
+
+```tsx
+import { useCallback, useState } from "react";
+import { List } from "./List";
+export const HookUseCallback = () => {
+  return (
+    <div>
+      <h1>UseCallback</h1>
+
+      <hr />
+    </div>
+  );
+};
+```
+
+Criamos um components/List.js
+
+```tsx
+import React from "react";
+
+export const List = () => {
+  return <div>List</div>;
+};
+```
+
+No HookUseCallback.js
+
+```tsx
+//criamos estado counter
+
+const [counter, setCounter] = useState(0);
+//criamos uma funcao que tem os dados
+const getItemFromDatabase = () => {
+  return ["a", "b", "c"];
+};
+
+//chamamos o Lis passando uma propriedade getItems
+<List getItems={getItemFromDatabase} />;
+
+//criamos um button
+  <p>{counter}</p>
+  <button onClick={() => setCounter(counter + 1)}>Alterar</button>
+```
+
+No List.js
+
+```tsx
+//usamos um estado e o useEffect para quando o getItems mudar ele recupera esse valor e atualiza
+import { useState, useEffect } from "react";
+
+export const List = ({ getItems }) => {
+  const [myItems, setMyItens] = useState([]);
+  useEffect(() => {
+    setMyItens(getItems);
+  }, [getItems]);
+  return <>{myItems && myItems.map((item, i) => <li key={i}>{item}</li>)}</>;
+};
+```
+
+Sem o uso do callback a cada clique que damos o componente vai ser renderizado novamente
+
+para isso nao acontecer usamos o useCallback na funcao de dados
+
+```tsx
+const getItemFromDatabase = useCallback(() => {
+  return ["a", "b", "c"];
+}, []);
+```
