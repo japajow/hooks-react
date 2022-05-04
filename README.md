@@ -658,3 +658,67 @@ return (
 
 fazendo o console.log() nao importa que o useLayoutEffect esteja em ultimo
 ele sempre vai executar primeiro que o useEffect
+
+## useImperativeHandle
+
+- Com o hook useImperativeHandle temos como acionar acoes em um outro componente de forma imperativa
+- Como nao podemos passar refs como props, precisamos usar uma funcao fowardRef
+- Isso nos permite passar as referencias, e torna o nosso exemplo viável
+
+Criando o components/HookUseImperativeHandle.js
+Criamos um components/SomeComponents.js
+
+HookUseImperativeHandle
+
+```tsx
+import { SomeComponents } from "./SomeComponents";
+
+//passamos a referencia como propriedade
+export const HookUseImperativeHandle = () => {
+  const inputRef = useRef();
+  return (
+    <div>
+      <h1>useImperativeHandle</h1>
+      <SomeComponents ref={inputRef} />
+      <hr />
+    </div>
+  );
+};
+```
+
+no SomeComponents.js
+
+```tsx
+//recuperamos o ref passado pela propriedade
+
+import { forwardRef } from "react";
+
+export const SomeComponents = forwardRef((props, ref) => {
+  const localInputRef = useRef();
+
+  //porem precisamo criar uma funcao para recuperar essa referencia  aqui usamos o useImperativeHandle
+
+  return <div>SomeComponents</div>;
+});
+
+//criamos o input
+
+<div>
+  <p>Insira no máximo 3 caracteres</p>
+  <input type="text" ref={localInputRef} />
+</div>;
+
+// agora criamos um botão  componente pai que vai validar o input filho
+<button onClick={() => inputRef.current.validate()}>Validate</button>;
+
+// no componente SomeComponent  validamos da forma abaixo
+useImperativeHandle(ref, () => {
+  return {
+    validate: () => {
+      if (localInputRef.current.value.length > 3) {
+        localInputRef.current.value = "";
+      }
+    },
+  };
+});
+```
