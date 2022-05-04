@@ -617,3 +617,44 @@ const premiumNumbers = useMemo(() => {
 ```
 
 assim ele nao fica mais re-renderizando novamente a toda vez que usa o input
+
+## useLayoutEffect
+
+- Muito parecido com o useEffect
+- A grande diferença e que este hook roda antes de renderizar o componente
+- Ou seja, o hook e síncrono, bloqueando o carregamento da pagina para o sucesso da sua funcionalidade
+- A ideia e executar algo antes que o usuário veja a pagina
+
+Criando o components/HookUseLayoutEffect.js
+
+```tsx
+// criamos o estado nome
+const [name, setName] = useState("Algum nome");
+
+//criamos um useEffect
+
+useEffect(() => {
+  console.log("2");
+  setName("mudou de nome");
+}, []);
+
+//criamos o useLayoutEffect
+
+useLayoutEffect(() => {
+  console.log("1");
+  setName("nome ainda nao mudou");
+}, []);
+
+//Criamos o JSX
+
+return (
+  <div>
+    <h2>UseLayoutEffect</h2>
+    <p>{name}</p>
+    <hr />
+  </div>
+);
+```
+
+fazendo o console.log() nao importa que o useLayoutEffect esteja em ultimo
+ele sempre vai executar primeiro que o useEffect
