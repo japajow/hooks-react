@@ -565,3 +565,55 @@ const getItemFromDatabase = useCallback(() => {
   return ["a", "b", "c"];
 }, []);
 ```
+
+## useMemo
+
+- O useMemo pode ser utilizado para garantir a referencia de um objeto
+- Fazendo com que algo possa ser alterado a uma referencia e nao a um valor
+- Com isso conseguimos condicionar useEffects a uma variável de maneira mais inteligente
+
+Criamos o components/HookUseMemo
+
+```tsx
+export const HookUseMemo = () => {
+  return <div>HookUseMemo</div>;
+};
+```
+
+Adicionamos o Hook na Home.js
+
+No HookUseMemo
+
+```tsx
+//criamos um estado de números
+const [number, setNumber] = useState(0);
+
+//criamos uma variável de array
+const premiumNumbers = ["0", "100", "200"];
+
+//criamos um useEffect que mude a cada alteração do premiumNumbers
+useEffect(() => {
+  console.log("foi alterado o premium Number");
+}, [premiumNumbers]);
+
+//agora criamos JSX
+return (
+  <div>
+    <h2>UseMemo</h2>
+    <input type="text" onChange={(e) => setNumber(e.target.value)} />
+    {premiumNumbers.includes(number) ? <p>Acertou o numero</p> : ""}
+    <hr />
+  </div>
+);
+```
+
+Da forma acima a cada alteração pode acontecer de chegar um momento que a memoria vai ficar carregado
+para isso nao acontecer usamos o useMemo
+
+```tsx
+const premiumNumbers = useMemo(() => {
+  return ["0", "100", "200"];
+}, []);
+```
+
+assim ele nao fica mais re-renderizando novamente a toda vez que usa o input

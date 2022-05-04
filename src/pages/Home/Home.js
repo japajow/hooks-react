@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { HookUseCallback } from "../../components/HookUseCallback";
 import { SomeContext } from "../../components/HookUseContext";
 import { HookUseEffect } from "../../components/HookUseEffect";
+import { HookUseMemo } from "../../components/HookUseMemo";
 import { HookUseReducer } from "../../components/HookUseReducer";
 import { HookUseRef } from "../../components/HookUseRef";
 import { HookUseState } from "../../components/HookUseState";
@@ -20,6 +21,7 @@ export const Home = () => {
       <p>{contextValue}</p>
       <HookUseRef />
       <HookUseCallback />
+      <HookUseMemo />
     </div>
   );
 };
