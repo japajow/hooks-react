@@ -769,3 +769,37 @@ export const HookCustom = () => {
   );
 };
 ```
+
+## useDebugValue
+
+- E um hook que e utilizado para debugar
+  = Aconselhado para ser utilizado em custom hooks
+- Adiciona uma area no React devtools ela estará no componente em que o hook e utilizado
+
+Vamos no nosso custom hook
+
+usePrevious.js
+
+```tsx
+useDebugValue("---- CUstom hook e useDebugValue ");
+useDebugValue("---- o numero onterior e " + value);
+```
+
+ficando assim completo
+
+```tsx
+import { useEffect, useRef, useDebugValue } from "react";
+
+export const usePrevious = (value) => {
+  const ref = useRef();
+
+  useDebugValue("---- CUstom hook e useDebugValue ");
+  useDebugValue("---- o numero onterior e " + value);
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+};
+```
