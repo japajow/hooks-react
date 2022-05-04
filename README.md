@@ -722,3 +722,50 @@ useImperativeHandle(ref, () => {
   };
 });
 ```
+
+## Custom Hook
+
+- Os custom hooks sao os hooks que nos criamos
+- Muitas vezes para abstrair funções complexas do componente ou simplesmente reaproveitar código
+- Esta técnica e muito utilizada em projetos profissionais
+
+Criamos uma pasta hooks/usePrevious.js
+
+```tsx
+import { useEffect, useRef } from "react";
+
+export const usePrevious = (value) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+};
+```
+
+Criamos components/HookCustom.js
+
+```tsx
+import { useState } from "react";
+import { usePrevious } from "../hooks/usePrevious";
+
+export const HookCustom = () => {
+  //Criamos um estado
+  const [number, setNumber] = useState();
+
+  //Chamamos nosso hook criado
+  const previousValue = usePrevious(number);
+
+  return (
+    <div>
+      <h1>Hook Custom </h1>
+      <p>Atual : {number}</p>
+      <p>Anterior: {previousValue}</p>
+      <button onClick={() => setNumber(Math.random())}>Alterar</button>
+      <hr />
+    </div>
+  );
+};
+```
